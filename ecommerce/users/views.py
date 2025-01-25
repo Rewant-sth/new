@@ -306,32 +306,41 @@ class EsewapaymentView(View):
             'cart':cart
         }
         return render(request,'users/esewaform.html',context)
-    
-import json
+import json    
 @login_required
 def esewa_verify(request):
     if request.method == "GET":
         data = request.GET.get('data')
         order_id = request.GET.get('order_id')
-        decoded_data = base64.b64decode(data).decode()
-        map_data = json.loads(decoded_data)
         
+        if not data:
+            messages.error(request, 'Missing data parameter.')
+            return redirect('/cart')  # Or wherever you want to redirect
+
+        try:
+            # Decode the data safely
+            decoded_data = base64.b64decode(data).decode('utf-8')
+            map_data = json.loads(decoded_data)
+        except (base64.binascii.Error, UnicodeDecodeError) as e:
+            messages.error(request, f'Invalid base64 encoding or decoding error: {str(e)}')
+            return redirect('/cart')  # Redirect if decoding fails
+
         try:
             order = Order.objects.get(id=order_id)
             cart = Cart.objects.filter(user=request.user)
         except Order.DoesNotExist:
             messages.error(request, 'Order not found.')
-            return redirect('orders')
+            return redirect('/cart')
         except Cart.DoesNotExist:
             messages.error(request, 'Cart not found.')
-            return redirect('cart')
+            return redirect('/cart')
 
         if map_data.get('status') == 'COMPLETE':
             order.payment_status = True
             order.save()
             cart.delete()
             messages.success(request, 'Payment successful.')
-            return redirect('/myorder')
+            return redirect('/myorder')  # Redirect to the correct page
         else:
             messages.error(request, 'Failed to make payment')
             return redirect('/cart')
