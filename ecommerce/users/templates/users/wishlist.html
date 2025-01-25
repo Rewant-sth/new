@@ -1,0 +1,120 @@
+{% extends 'layouts.html' %}
+{% load static %}
+
+{% block title %}
+<title>Ecommerce Wishlist</title>
+{% endblock %}
+
+{% block main-content %}
+{% include 'users/header.html' %}
+<style>
+    .action-column {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds space between buttons */
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.action-btn .fa-trash {
+    margin-right: 5px;
+}
+
+.action-btn .fa-shopping-cart {
+    margin-right: 5px;
+}
+
+.action-btn.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.action-btn.btn-danger:hover {
+    background-color: #c82333;
+    color: #fff;
+}
+
+.action-btn.btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+}
+
+.action-btn.btn-success:hover {
+    background-color: #218838;
+    color: #fff;
+}
+
+</style>
+<div class="container my-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            {% if items|length < 1 %}
+                <h2 class="text-center text-danger my-3">No items in your wishlist</h2>
+            {% else %}
+                <h2 class="text-center mb-4">My Wishlist Items</h2>
+
+                {% for msg in messages %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in items %}
+                        <tr>
+                            <td>{{ i.product.product_name }}</td>
+                            <td>
+                                <img src="/{{ i.product.product_image }}" alt="{{ i.product.product_name }}" 
+                                     class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                            </td>
+                            <td class="action-column">
+                                <a href="/removewishlist/{{ i.id }}" class="btn btn-danger btn-sm action-btn" 
+                                   onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">
+                                    <i class="fa fa-trash"></i> Remove
+                                </a>
+                                <form action="/addtocart/{{ i.id }}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success btn-sm action-btn">
+                                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                </form>
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include 'users/footer.html' %}
+{% endblock %}

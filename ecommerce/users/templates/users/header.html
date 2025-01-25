@@ -1,0 +1,323 @@
+{% load static %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco-Bazar</title>
+
+  <!-- Custom CSS link -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    .navbar-first{
+    background-color: rgb(243, 243, 191);
+    padding-top: 1px;
+    padding-bottom: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.navbar-first .navbar-text {
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.navbar-second {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 120px; 
+    padding: 0 15px; 
+    border: none;
+}
+
+.navbar-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%; 
+    display: flex;
+    align-items: center; 
+}
+
+.navbar-logo img {
+    max-height: 120px; 
+    width: auto; 
+}
+
+.navbar-second .search-input {
+    width: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 4px;
+    outline: none;
+
+}
+
+.navbar-second .search-btn {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.search-btn:focus {
+    outline: none; 
+    box-shadow: none;
+}
+
+.navbar-second .search-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+@media (max-width: 768px ) {
+    .navbar-second .search-input {
+        width: 100%; 
+    }
+
+    .navbar-second .search-btn {
+        margin-left: 10px; 
+    }
+}
+.d-flex a {
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+}
+.d-flex .fa-shopping-cart,
+.d-flex .fa-heart,
+.d-flex .fa-user {
+  color: rgb(219, 159, 49); /* Consistent icon color */
+  font-size: 1.5rem;       /* Adjust size for better alignment */
+}
+
+.d-flex a {
+  display: flex;           /* Ensures proper alignment */
+  align-items: center;
+  justify-content: center;
+}
+
+.d-flex a:hover {
+  color: black;            /* Hover effect */
+}
+
+.d-flex .me-3 {
+  margin-right: 1rem;      /* Proper spacing between icons */
+  position: static;        /* Remove conflicting positioning */
+}
+
+.d-flex .btn-outline-secondary {
+  border: none; /* Removes the border */
+  
+}
+
+.btn-outline-secondary {
+    color: black;
+    background-color: transparent;
+    padding: 10px 20px;
+    font-size: 20px; 
+    transition: all 0.3s ease; 
+    display: flex; 
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.offcanvas-end {
+    background-color: whitesmoke;
+    width: 320px !important; 
+}
+
+.offcanvas-header {
+    background-color: #eee; 
+    color: black;
+    padding: 15px;
+    display: flex;
+    justify-content: center; 
+}
+
+.offcanvas-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.offcanvas-body a {
+    display: block;
+    color: black; 
+    padding: 15px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.offcanvas-body a:hover {
+    background-color: #eee; 
+    border-radius: 5px;
+}
+
+.offcanvas-header .btn-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.navbar-third {
+    background-color: white;
+    padding: 10px 0;
+    
+}
+
+.navbar-third .nav-link {
+    font-size: 17px;
+    color: black;
+    padding: 10px 15px;
+    font-weight: bold;
+    margin-right: 20px;
+
+}
+
+.navbar-third .nav-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .navbar-third .nav-link {
+        font-size: 14px;
+    }
+}
+
+
+
+
+ 
+
+
+
+  </style>
+
+  <!-- Google font link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body id="top">
+
+ <!-- First Navbar -->
+<nav class="navbar navbar-first">
+  <div class="container-fluid">
+    <span class="navbar-text mx-auto">Reduce, Re-use and Recycle.</span>
+  </div>
+</nav>
+
+<!-- Second Navbar -->
+<!-- Second Navbar -->
+<nav class="navbar navbar-second">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Search Form -->
+    <form class="d-flex" action="" method="get">
+      <input class="form-control search-input" type="search" name="q" placeholder="Search for products" aria-label="Search" required>
+      <button class="btn search-btn" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+
+    <!-- Logo -->
+    <div class="navbar-logo d-flex justify-content-center align-items-center">
+      <a href="">
+        <img src="{% static 'images/logo.png' %}" alt="Eco-Bazaar Logo" class="d-inline-block align-text-top">
+      </a>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="d-flex ms-auto">
+      <!-- Cart icon with dynamic item count -->
+      <a href="/cart" class="fas fa-shopping-cart me-3 text-decoration-none" title="Shopping Cart">
+        <span id="cart-count">{{ user.cart_item_count }}</span>
+      </a>
+      <!-- Wishlist icon with dynamic item count -->
+      <a href="/wishlist/" class="fas fa-heart text-decoration-none" title="Add to Wishlist">
+        <span id="wishlist-count">{{ user.wishlist.count }}</span>
+    </a>
+
+      <div class="text-end d-flex align-items-center justify-content-end gap-3">
+        {% if user.is_authenticated %}
+          <!-- My Account Dropdown -->
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; background-color: #21825d; border-radius: 20px;">
+              My Account
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="accountDropdown" style="background-color: #21825d; border-radius: 10px; padding: 8px; min-width: 180px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); font-size: 0.875rem; line-height: 1.2;">
+              <li><a class="dropdown-item" href="/profile" style="font-size: 0.875rem; color: rgb(43, 42, 42); padding: 6px 12px; border-radius: 5px; text-decoration: underline; display: block;">Profile</a></li>
+              <li><a class="dropdown-item" href="/cart" style="font-size: 0.875rem; color: rgb(43, 42, 42); padding: 6px 12px; border-radius: 5px; text-decoration: underline; display: block;">Cart</a></li>
+              <li><a class="dropdown-item" href="/myorder" style="font-size: 0.875rem; color: rgb(43, 42, 42); padding: 6px 12px; border-radius: 5px; text-decoration: underline; display: block;">Order</a></li>
+              <!-- <li><a class="dropdown-item" href="/password-change" style="font-size: 0.875rem; color: rgb(43, 42, 42); padding: 6px 12px; border-radius: 5px; text-decoration: underline; display: block;">Password Change</a></li> -->
+              <li><a class="dropdown-item text-danger" href="/logout" style="font-size: 0.875rem; color: rgb(43, 42, 42); padding: 6px 12px; border-radius: 5px; text-decoration: underline; display: block;">Log Out</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <!-- Login Icon -->
+          <a href="/login" class="text-warning fs-4" title="Login">
+            <i class="bi bi-person"></i>
+          </a>
+          <!-- Sign-Up Icon -->
+          <a href="/register" class="text-warning fs-4" title="Sign-Up">
+            <i class="bi bi-person-plus"></i>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Third Navbar -->
+
+
+<nav class="navbar navbar-third navbar-expand-lg">
+  <div class="container-fluid">
+    <div class="navbar-nav mx-auto">
+      <!-- Link to the homepage or all products page -->
+      <a href='/' class="nav-link">Shop</a>
+      
+      <!-- Iterate through categories and create a link for each one -->
+      {% for category in categories %}
+        <a href="{% url 'users:category_product' category.id %}" class="nav-link">{{ category.category_name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</nav>
+
+
+
+
+<!-- Scripts for icons -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+

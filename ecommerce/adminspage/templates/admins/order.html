@@ -1,0 +1,67 @@
+{% extends 'admins/layout.html' %}
+{% load static %}
+
+{% block title %}
+<title>User Orders</title>
+{% endblock %}
+
+{% block main-content %}
+
+<!-- start of order section -->
+<div class="container my-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            {% if orders|length < 1 %}
+                <h2 class="text-center text-danger my-3">No orders available</h2>
+            {% else %}
+                <h2 class="text-center">Ordered Items</h2>
+                
+                {% for msg in messages %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+                    
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Contact Number</th>
+                            <th>Address</th>
+                            <th>Payment Method</th>
+                            <th>Products</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.customer.username }}</td>
+                                <td>{{ order.contact_no }}</td>
+                                <td>{{ order.address }}</td>
+                                <td>{{ order.payment_method }}</td>
+                                <td>
+                                    <ul>
+                                        {% for item in order.items.all %}
+                                            <li>{{ item.product_name }} - ${{ item.product_price }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- end of order section -->
+
+{% endblock %}
